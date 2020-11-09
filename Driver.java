@@ -28,9 +28,9 @@ public static Scanner input = new Scanner(System.in);
 	}
     
 	// print all doctors
-	public static void printDr(ArrayList<User> users) {
+	public static void printDr(ArrayList<User> doctors) {
 		System.out.println("----Doctors----");
-		for (User u : users) {
+		for (User u : doctors) {
 			if (u instanceof Doctor) {
 		    	System.out.println(u.toString());
 			} 
@@ -38,7 +38,7 @@ public static Scanner input = new Scanner(System.in);
 	}
 
     // printing doctor's appointment
-    public static void printDrAppointment(User doctor) {
+    public static void printDrAppointment(Doctor doctor) {
        Collections.sort(doctor.getAppointments());
 	   for (Appointment a : doctor.getAppointments())
 		   System.out.println(a.toString());
@@ -61,11 +61,10 @@ public static Scanner input = new Scanner(System.in);
 				int minute = input.nextInt();
 				
 				apoDateTime = LocalDateTime.of(year, month, dayOfMonth, hour, minute);
-		
-		
     	return new Appointment(returnedUser, apoDateTime);	
 	}
     
+    // find doctor
     public static User findDr(ArrayList<User> doctors, int doctorId) {
     	for (User d : doctors) {
     		if (d.getUserId() == doctorId) {
@@ -75,28 +74,22 @@ public static Scanner input = new Scanner(System.in);
     	return null;
     }
     
-    // asking a patient which dr they want to make an appointment with
-    public static User chooseDoctor(ArrayList<User> users) {
-		printDr(users);
+    // asking a patient which doctor they want to make an appointment with
+    public static User chooseDoctor(ArrayList<User> doctors) {
+		printDr(doctors);
 		System.out.print("Enter doctor's doctor Id : ");
 		int choosenDrId = input.nextInt();
-		User returnDoctor = findDr(users, choosenDrId);
+		User returnDoctor = findDr(doctors, choosenDrId);
 		
 		while (returnDoctor == null) {
 			System.out.println("Couldn't find the doctor.");
 			System.out.print("Enter doctor's doctor Id : ");
 			choosenDrId = input.nextInt();
-			returnDoctor = findUser(users);
+			returnDoctor = findUser(doctors);
 
 		}
 		return returnDoctor;		
 	}
-    
-    // print our patient's appointment
-//    public static void printPatientAppointment(User doctor, User patient) {
-// 	   for (Appointment a : doctor.getAppointments())
-// 		   System.out.println(a.toString() + "With Dr. " + doctor.getFirstName() + " " + doctor.getLastName());
-//    }
     
     public static void printPatientAppointment(User patient, Appointment appointment, User doctor) {
 		System.out.println("Appointment : " + appointment.getAppointmentDateTime() + 
@@ -120,30 +113,37 @@ public static Scanner input = new Scanner(System.in);
 		users.add(d1);
 		users.add(d2);
 		
- 		Appointment a1 = new Appointment(p1, LocalDateTime.of(2020, 11, 3, 10, 00));
+ 		Appointment a1 = new Appointment(p1, LocalDateTime.of(2020, 11, 3, 11, 00));
 		Appointment a2 = new Appointment(p2, LocalDateTime.of(2020, 12, 20, 11, 30));
 		Appointment a3 = new Appointment(p3, LocalDateTime.of(2020, 10, 20, 11, 30));
+ 		Appointment a4 = new Appointment(p1, LocalDateTime.of(2020, 11, 3, 10, 00));
 
-		
 		d1.addAppointments(a1);
 		d2.addAppointments(a2);
 		d2.addAppointments(a3);
+		d1.addAppointments(a4);
 
-			
-
+		// action
+		
 		printUser(users);
 		User returnedUser = findUser(users);
 		
 		if (returnedUser instanceof Patient) {
+			// get patient from id
 			Patient p = (Patient)returnedUser;
+			// make and add an appointment 
 			Appointment newAppointment = makeAppoitment(p);
-			
-			User choosenDoctor = chooseDoctor(users);
+			// choose a doctor you want to make an appointment with
+			Doctor choosenDoctor = (Doctor)chooseDoctor(users);
+			// add an appointment to doctor
 			choosenDoctor.addAppointments(newAppointment);
+			// print patient appointment
 			printPatientAppointment(p, newAppointment, choosenDoctor);
 
 		} else if (returnedUser instanceof Doctor) {
+			// get doctor from id
 			Doctor d = (Doctor)returnedUser;
+			// print doctor appointment
 			printDrAppointment(d);
 		}
 

@@ -2,11 +2,10 @@ import java.util.ArrayList;
 import java.util.regex.Pattern;
 
 public class Doctor extends User{
-
-
+	
 	private String specialty;
 	
-//	private ArrayList<Appointment> appointments;
+	private ArrayList<Appointment> appointments;
 	
 	private final String DEFAULT_UNKNOWN = "Unknown";
 	
@@ -15,16 +14,16 @@ public class Doctor extends User{
 		
 		super(firstName, lastName, email, phoneNumber);
 		setSpecialty(specialty);
-//		this.appointments = new ArrayList<Appointment>();
+		this.appointments = new ArrayList<Appointment>();
 		}
 	
-//	public void addAppointments(Appointment a) {
-//		this.appointments.add(a); 
-//	}
-//	
-//	public ArrayList<Appointment> getAppointments() {
-//		return appointments;
-//	}
+	public void addAppointments(Appointment a) {
+		this.appointments.add(a); 
+	}
+	
+	public ArrayList<Appointment> getAppointments() {
+		return appointments;
+	}
 	
 	public String getSpecialty() {
 		return specialty;

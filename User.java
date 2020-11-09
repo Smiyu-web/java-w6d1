@@ -9,7 +9,7 @@ public class User {
 	private String phoneNumber;
 	private String email;
 	
-	private ArrayList<Appointment> appointments;
+//	private ArrayList<Appointment> appointments;
 
 	
 	private final String DEFAULT_UNKNOWN = "Unknown";
@@ -21,16 +21,16 @@ public class User {
 		setEmail(email);
 		setPhoneNumber(phoneNumber);
 		
-		this.appointments = new ArrayList<Appointment>();
+//		this.appointments = new ArrayList<Appointment>();
 	}
 	
-	public void addAppointments(Appointment a) {
-		this.appointments.add(a); 
-	}
-	
-	public ArrayList<Appointment> getAppointments() {
-		return appointments;
-	}
+//	public void addAppointments(Appointment a) {
+//		this.appointments.add(a); 
+//	}
+//	
+//	public ArrayList<Appointment> getAppointments() {
+//		return appointments;
+//	}
 	
 	public int getUserId() {
 		return userId;
